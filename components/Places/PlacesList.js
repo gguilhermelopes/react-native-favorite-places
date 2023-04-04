@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   fallbackText: {
+    fontFamily: "dm-sans",
     fontSize: 16,
   },
 });
