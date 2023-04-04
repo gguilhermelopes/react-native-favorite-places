@@ -6,11 +6,19 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "backgroundColor": "#242A09",
+    "backgroundColor": "#141704",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffffff",
+      "plugins": [
+        [
+          "expo-image-picker",
+          {
+            "cameraPermission": "The app needs access to your camera in order to take photos of your favorite places."
+          }
+        ]
+      ]
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {

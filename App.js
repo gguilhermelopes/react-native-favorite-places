@@ -41,7 +41,7 @@ export default function App() {
   }
   return (
     <>
-      <StatusBar style="dark" />
+      <StatusBar style="light" />
       <SafeAreaView onLayout={onLayoutRootView} style={styles.root}>
         <NavigationContainer>
           <Stack.Navigator
@@ -50,12 +50,12 @@ export default function App() {
                 fontFamily: "dm-sans-bold",
               },
               headerStyle: {
-                backgroundColor: Colors.primary800,
+                backgroundColor: Colors.primary900,
                 alignItems: "center",
               },
               headerTintColor: Colors.primary100,
               contentStyle: {
-                backgroundColor: Colors.primary700,
+                backgroundColor: Colors.primary800,
               },
             }}
           >
