@@ -9,6 +9,7 @@ import AllPlaces from "./screens/AllPlaces";
 import AddPlaces from "./screens/AddPlaces";
 import { SafeAreaView, StyleSheet } from "react-native";
 import IconButton from "./components/UI/IconButton";
+import { Colors } from "./constants/colors";
 
 const Stack = createNativeStackNavigator();
 
@@ -48,12 +49,21 @@ export default function App() {
               headerTitleStyle: {
                 fontFamily: "dm-sans-bold",
               },
+              headerStyle: {
+                backgroundColor: Colors.primary800,
+                alignItems: "center",
+              },
+              headerTintColor: Colors.primary100,
+              contentStyle: {
+                backgroundColor: Colors.primary700,
+              },
             }}
           >
             <Stack.Screen
               name="AllPlaces"
               component={AllPlaces}
               options={({ navigation }) => ({
+                title: "Your Favorite Places",
                 headerRight: ({ tintColor }) => (
                   <IconButton
                     color={tintColor}
@@ -67,7 +77,9 @@ export default function App() {
             <Stack.Screen
               name="AddPlaces"
               component={AddPlaces}
-              options={{ presentation: "modal" }}
+              options={{
+                title: "Add a new place!",
+              }}
             />
           </Stack.Navigator>
         </NavigationContainer>
