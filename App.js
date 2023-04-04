@@ -8,6 +8,7 @@ import * as SplashScreen from "expo-splash-screen";
 import AllPlaces from "./screens/AllPlaces";
 import AddPlaces from "./screens/AddPlaces";
 import { SafeAreaView, StyleSheet } from "react-native";
+import IconButton from "./components/UI/IconButton";
 
 const Stack = createNativeStackNavigator();
 
@@ -49,8 +50,25 @@ export default function App() {
               },
             }}
           >
-            <Stack.Screen name="AllPlaces" component={AllPlaces} />
-            <Stack.Screen name="AddPlaces" component={AddPlaces} />
+            <Stack.Screen
+              name="AllPlaces"
+              component={AllPlaces}
+              options={({ navigation }) => ({
+                headerRight: ({ tintColor }) => (
+                  <IconButton
+                    color={tintColor}
+                    name="add"
+                    size={24}
+                    onPress={() => navigation.navigate("AddPlaces")}
+                  />
+                ),
+              })}
+            />
+            <Stack.Screen
+              name="AddPlaces"
+              component={AddPlaces}
+              options={{ presentation: "modal" }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaView>
