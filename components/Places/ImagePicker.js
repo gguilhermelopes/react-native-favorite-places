@@ -1,4 +1,12 @@
-import { Alert, Button, Image, StyleSheet, View, Text } from "react-native";
+import {
+  Alert,
+  Button,
+  Image,
+  StyleSheet,
+  View,
+  Text,
+  ActivityIndicator,
+} from "react-native";
 import {
   launchCameraAsync,
   useCameraPermissions,
@@ -11,6 +19,7 @@ import OutlinedButton from "../UI/OutlinedButton";
 const ImagePicker = () => {
   const [cameraPermissionInfo, requestPermission] = useCameraPermissions();
   const [imagePreview, setImagePreview] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const verifyPermission = async () => {
     if (cameraPermissionInfo.status === PermissionStatus.UNDETERMINED) {
@@ -35,12 +44,13 @@ const ImagePicker = () => {
     if (!hasPermission) {
       return;
     }
-
+    setLoading(true);
     const image = await launchCameraAsync({
       allowsEditing: true,
       aspect: [1, 1],
       quality: 0.5,
     });
+    setLoading(false);
     setImagePreview(image.assets[0].uri);
   };
 
@@ -48,7 +58,13 @@ const ImagePicker = () => {
     <Text style={styles.imagePreviewText}>See image preview here!</Text>
   );
 
-  if (imagePreview) {
+  if (loading) {
+    showImagePreview = (
+      <ActivityIndicator size="large" color={Colors.primary700} />
+    );
+  }
+
+  if (imagePreview && !loading) {
     showImagePreview = (
       <Image style={styles.image} source={{ uri: imagePreview }} />
     );

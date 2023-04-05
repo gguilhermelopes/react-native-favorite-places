@@ -16,6 +16,10 @@
           "expo-image-picker",
           {
             "cameraPermission": "The app needs access to your camera in order to take photos of your favorite places."
+          },
+          "expo-location",
+          {
+            "locationAlwaysAndWhenInUsePermission": "The app needs access to your location."
           }
         ]
       ]
