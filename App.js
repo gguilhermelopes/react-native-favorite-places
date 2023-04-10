@@ -79,7 +79,7 @@ export default function App() {
               name="AddPlaces"
               component={AddPlaces}
               options={{
-                title: "Add a new place!",
+                title: "Add a new place",
               }}
             />
             <Stack.Screen name="fullScreenMap" component={Map} />
