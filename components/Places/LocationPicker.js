@@ -16,12 +16,15 @@ import {
 import { Colors } from "../../constants/colors";
 import OutlinedButton from "../UI/OutlinedButton";
 import getMapPreview from "../../util/location";
+import { useNavigation } from "@react-navigation/native";
 
 const LocationPicker = () => {
   const [loading, setLoading] = useState(false);
   const [pickedLocation, setPickedLocation] = useState(null);
   const [locationPermissionInfo, requestPermission] =
     useForegroundPermissions();
+
+  const navigation = useNavigation();
 
   const verifyPermissions = async () => {
     if (locationPermissionInfo.status === PermissionStatus.UNDETERMINED) {
@@ -53,9 +56,13 @@ const LocationPicker = () => {
       longitude: location.coords.longitude,
     });
   };
-  const pickOnMapHandler = () => {};
+  const pickOnMapHandler = () => {
+    navigation.navigate("fullScreenMap");
+  };
 
-  let mapPreview = <Text>No location picked yet!</Text>;
+  let mapPreview = (
+    <Text style={styles.mapPreviewText}>No location picked yet!</Text>
+  );
 
   if (loading) {
     mapPreview = <ActivityIndicator size="large" color={Colors.primary700} />;
@@ -64,7 +71,7 @@ const LocationPicker = () => {
   if (pickedLocation && !loading) {
     mapPreview = (
       <Image
-        style={styles.image}
+        style={styles.mapImage}
         source={{
           uri: getMapPreview(pickedLocation.latitude, pickedLocation.longitude),
         }}
@@ -106,8 +113,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingBottom: 32,
   },
-  image: {
+  mapImage: {
     width: "100%",
     height: "100%",
+  },
+  mapPreviewText: {
+    fontFamily: "dm-sans-bold",
+    fontSize: 20,
   },
 });

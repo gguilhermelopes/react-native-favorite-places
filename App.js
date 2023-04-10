@@ -10,6 +10,7 @@ import AddPlaces from "./screens/AddPlaces";
 import { SafeAreaView, StyleSheet } from "react-native";
 import IconButton from "./components/UI/IconButton";
 import { Colors } from "./constants/colors";
+import Map from "./screens/Map";
 
 const Stack = createNativeStackNavigator();
 
@@ -81,6 +82,7 @@ export default function App() {
                 title: "Add a new place!",
               }}
             />
+            <Stack.Screen name="fullScreenMap" component={Map} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaView>
