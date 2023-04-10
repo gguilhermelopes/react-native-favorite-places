@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingBottom: 32,
+    paddingBottom: 16,
   },
   mapImage: {
     width: "100%",
