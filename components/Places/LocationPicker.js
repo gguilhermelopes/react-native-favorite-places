@@ -1,4 +1,12 @@
-import { ActivityIndicator, Alert, StyleSheet, View } from "react-native";
+import { useState } from "react";
+import {
+  ActivityIndicator,
+  Alert,
+  Image,
+  StyleSheet,
+  View,
+  Text,
+} from "react-native";
 import {
   getCurrentPositionAsync,
   useForegroundPermissions,
@@ -7,10 +15,11 @@ import {
 
 import { Colors } from "../../constants/colors";
 import OutlinedButton from "../UI/OutlinedButton";
-import { useState } from "react";
+import getMapPreview from "../../util/location";
 
 const LocationPicker = () => {
   const [loading, setLoading] = useState(false);
+  const [pickedLocation, setPickedLocation] = useState(null);
   const [locationPermissionInfo, requestPermission] =
     useForegroundPermissions();
 
@@ -39,17 +48,33 @@ const LocationPicker = () => {
     setLoading(true);
     const location = await getCurrentPositionAsync();
     setLoading(false);
-    console.log(location);
+    setPickedLocation({
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+    });
   };
   const pickOnMapHandler = () => {};
 
+  let mapPreview = <Text>No location picked yet!</Text>;
+
+  if (loading) {
+    mapPreview = <ActivityIndicator size="large" color={Colors.primary700} />;
+  }
+
+  if (pickedLocation && !loading) {
+    mapPreview = (
+      <Image
+        style={styles.image}
+        source={{
+          uri: getMapPreview(pickedLocation.latitude, pickedLocation.longitude),
+        }}
+      />
+    );
+  }
+
   return (
     <View>
-      <View style={styles.mapPreview}>
-        {loading && (
-          <ActivityIndicator size="large" color={Colors.primary700} />
-        )}
-      </View>
+      <View style={styles.mapPreview}>{mapPreview}</View>
       <View style={styles.actionsWrapper}>
         <OutlinedButton name="location" onPress={getLocationHandler}>
           Locate User
@@ -73,11 +98,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 8,
     backgroundColor: Colors.primary200,
+    overflow: "hidden",
   },
   actionsWrapper: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     paddingBottom: 32,
+  },
+  image: {
+    width: "100%",
+    height: "100%",
   },
 });
