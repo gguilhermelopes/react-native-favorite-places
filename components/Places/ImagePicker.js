@@ -16,7 +16,7 @@ import { useState } from "react";
 import { Colors } from "../../constants/colors";
 import OutlinedButton from "../UI/OutlinedButton";
 
-const ImagePicker = () => {
+const ImagePicker = ({ onTakeImage }) => {
   const [cameraPermissionInfo, requestPermission] = useCameraPermissions();
   const [imagePreview, setImagePreview] = useState("");
   const [loading, setLoading] = useState(false);
@@ -50,8 +50,10 @@ const ImagePicker = () => {
       aspect: [1, 1],
       quality: 0.5,
     });
+    const imageUri = image.assets[0].uri;
     setLoading(false);
-    setImagePreview(image.assets[0].uri);
+    setImagePreview(imageUri);
+    onTakeImage(imageUri);
   };
 
   let showImagePreview = (
@@ -73,7 +75,7 @@ const ImagePicker = () => {
     <View>
       <View style={styles.imageWrapper}>{showImagePreview}</View>
       <OutlinedButton name="camera" onPress={takeImageHandler}>
-        Use your camera
+        Use Your Camera
       </OutlinedButton>
     </View>
   );
