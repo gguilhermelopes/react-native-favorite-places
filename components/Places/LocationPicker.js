@@ -85,6 +85,7 @@ const LocationPicker = ({ onPickLocation }) => {
       longitude: location.coords.longitude,
     });
   };
+
   const pickOnMapHandler = () => {
     navigation.navigate("fullScreenMap");
   };
