@@ -54,7 +54,7 @@ export default function App() {
                 backgroundColor: Colors.primary900,
                 alignItems: "center",
               },
-              headerTintColor: Colors.primary100,
+              headerTintColor: Colors.accent500,
               contentStyle: {
                 backgroundColor: Colors.primary800,
               },
