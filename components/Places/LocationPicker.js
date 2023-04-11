@@ -91,7 +91,7 @@ const LocationPicker = ({ onPickLocation }) => {
   };
 
   let mapPreview = (
-    <Text style={styles.mapPreviewText}>No location picked yet!</Text>
+    <Text style={styles.mapPreviewText}>No location picked yet.</Text>
   );
 
   if (loading) {
@@ -149,6 +149,7 @@ const styles = StyleSheet.create({
   },
   mapPreviewText: {
     fontFamily: "dm-sans-bold",
-    fontSize: 20,
+    fontSize: 14,
+    color: Colors.primary700,
   },
 });

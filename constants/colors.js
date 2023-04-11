@@ -8,7 +8,7 @@ export const Colors = {
   primary700: "#404513",
   primary800: "#242A09",
   primary900: "#141704",
-  accent500: "#FFA500,",
+  accent500: "#FFA500",
   accent600: "#A30015",
-  accent700: "#1A237E,",
+  accent700: "#1A237E",
 };

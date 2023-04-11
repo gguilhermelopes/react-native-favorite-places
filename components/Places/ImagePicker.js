@@ -57,7 +57,7 @@ const ImagePicker = ({ onTakeImage }) => {
   };
 
   let showImagePreview = (
-    <Text style={styles.imagePreviewText}>See image preview here!</Text>
+    <Text style={styles.imagePreviewText}>See image preview here.</Text>
   );
 
   if (loading) {
@@ -95,7 +95,8 @@ const styles = StyleSheet.create({
   },
   imagePreviewText: {
     fontFamily: "dm-sans-bold",
-    fontSize: 20,
+    fontSize: 14,
+    color: Colors.primary700,
   },
   image: {
     width: "100%",

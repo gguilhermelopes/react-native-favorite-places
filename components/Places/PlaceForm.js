@@ -1,5 +1,12 @@
 import { useCallback, useState } from "react";
-import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Alert,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 import { Colors } from "../../constants/colors";
 import ImagePicker from "./ImagePicker";
@@ -25,8 +32,15 @@ const PlaceForm = ({ onCreatePlace }) => {
   }, []);
 
   const savePlaceHandler = () => {
-    const placeData = new Place(input, selectedImage, pickedLocation);
-    onCreatePlace(placeData);
+    if ((pickedLocation, selectedImage, input)) {
+      const placeData = new Place(input, selectedImage, pickedLocation);
+      onCreatePlace(placeData);
+    } else {
+      Alert.alert(
+        "Missing information!",
+        "You must select an image, title and location in order to add a place."
+      );
+    }
   };
 
   return (
@@ -55,17 +69,17 @@ const styles = StyleSheet.create({
   },
   label: {
     fontFamily: "dm-sans-bold",
-    color: Colors.primary200,
+    color: Colors.accent500,
     marginBottom: 4,
   },
   input: {
-    marginVertical: 8,
+    marginBottom: 8,
     paddingHorizontal: 12,
     paddingVertical: 8,
     fontSize: 16,
     borderRadius: 8,
     backgroundColor: Colors.primary200,
     color: Colors.primary800,
-    fontFamily: "dm-sans",
+    fontFamily: "dm-sans-bold",
   },
 });
