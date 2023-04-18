@@ -7,7 +7,7 @@ const PlaceItem = ({ place, onPress }) => {
       style={({ pressed }) => [styles.item, pressed && styles.pressed]}
       onPress={onPress}
     >
-      <Image style={styles.image} source={{ uri: place.imageUri }} />
+      <Image style={styles.image} source={{ uri: place.imageURI }} />
       <View style={styles.info}>
         <Text style={styles.title}>{place.title}</Text>
         <Text style={styles.address}>{place.address}</Text>

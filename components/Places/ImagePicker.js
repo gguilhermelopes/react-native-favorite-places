@@ -50,10 +50,10 @@ const ImagePicker = ({ onTakeImage }) => {
       aspect: [1, 1],
       quality: 0.5,
     });
-    const imageUri = image.assets[0].uri;
+    const imageURI = image.assets[0].uri;
     setLoading(false);
-    setImagePreview(imageUri);
-    onTakeImage(imageUri);
+    setImagePreview(imageURI);
+    onTakeImage(imageURI);
   };
 
   let showImagePreview = (

@@ -1,7 +1,7 @@
 export class Place {
-  constructor(title, imageUri, location) {
+  constructor(title, imageURI, location) {
     this.title = title;
-    this.imageUri = imageUri;
+    this.imageURI = imageURI;
     this.address = location.address;
     this.location = {
       latitude: location.latitude,
