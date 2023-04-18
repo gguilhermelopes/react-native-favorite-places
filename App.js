@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
@@ -11,6 +11,7 @@ import { SafeAreaView, StyleSheet } from "react-native";
 import IconButton from "./components/UI/IconButton";
 import { Colors } from "./constants/colors";
 import Map from "./screens/Map";
+import { init } from "./util/database";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,11 +20,14 @@ export default function App() {
     "dm-sans": require("./assets/fonts/DMSans-Regular.ttf"),
     "dm-sans-bold": require("./assets/fonts/DMSans-Bold.ttf"),
   });
+  const [dbInitialized, setDbInitialized] = useState(false);
 
   useEffect(() => {
     const prepare = async () => {
       try {
+        await init();
         await SplashScreen.preventAutoHideAsync();
+        setDbInitialized(true);
       } catch (e) {
         console.warn(e);
       }
@@ -32,12 +36,12 @@ export default function App() {
   }, []);
 
   const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
+    if (fontsLoaded && dbInitialized) {
       await SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
 
-  if (!fontsLoaded) {
+  if (!fontsLoaded & !dbInitialized) {
     return null;
   }
   return (
