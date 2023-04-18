@@ -19,9 +19,7 @@ export const init = () => {
         () => {
           resolve();
         },
-        (_, error) => {
-          reject(error);
-        }
+        (_, error) => reject(error)
       );
     });
   });
@@ -37,9 +35,7 @@ export const insertPlace = ({ title, imageURI, address, location }) => {
         (_, result) => {
           resolve(result);
         },
-        (_, error) => {
-          reject(error);
-        }
+        (_, error) => reject(error)
       );
     });
   });
@@ -71,9 +67,23 @@ export const fetchPlaces = () => {
           }
           resolve(places);
         },
-        (_, error) => {
-          reject(error);
-        }
+        (_, error) => reject(error)
+      );
+    });
+  });
+  return promise;
+};
+
+export const fetchPlaceDetails = (id) => {
+  const promise = new Promise((resolve, reject) => {
+    database.transaction((tr) => {
+      tr.executeSql(
+        `SELECT * FROM places WHERE id = ?`,
+        [id],
+        (_, result) => {
+          resolve(result.rows._array[0]);
+        },
+        (_, error) => reject(error)
       );
     });
   });
