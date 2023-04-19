@@ -5,16 +5,41 @@ import {
   View,
   Text,
   ActivityIndicator,
+  Alert,
 } from "react-native";
 import OutlinedButton from "../components/UI/OutlinedButton";
 import { Colors } from "../constants/colors";
 import { useEffect, useState } from "react";
-import { fetchPlaceDetails } from "../util/database";
+import { deletePlace, fetchPlaceDetails } from "../util/database";
+import IconButton from "../components/UI/IconButton";
 
 const PlaceDetails = ({ route, navigation }) => {
   const [selectedPlaceData, setSelectedPlaceData] = useState();
 
-  const showOnMapHandler = () => {};
+  const showOnMapHandler = () => {
+    navigation.navigate("fullScreenMap", {
+      initialLatitude: selectedPlaceData.location.latitude,
+      initialLongitude: selectedPlaceData.location.longitude,
+    });
+  };
+
+  const onDeleteHandler = () => {
+    Alert.alert("Are you sure?", "This can't be undone!", [
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+      {
+        text: "Delete",
+        onPress: async () => {
+          await deletePlace(selectedPlaceId);
+          Alert.alert("Place deleted");
+          navigation.navigate("AllPlaces");
+        },
+        style: "destructive",
+      },
+    ]);
+  };
 
   const selectedPlaceId = route.params.placeId;
 
@@ -24,6 +49,14 @@ const PlaceDetails = ({ route, navigation }) => {
       setSelectedPlaceData(place);
       navigation.setOptions({
         title: place.title,
+        headerRight: () => (
+          <IconButton
+            color={Colors.accent600}
+            name="trash"
+            size={24}
+            onPress={onDeleteHandler}
+          />
+        ),
       });
     };
     loadPlaceData();

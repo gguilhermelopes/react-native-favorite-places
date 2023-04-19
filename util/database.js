@@ -81,7 +81,34 @@ export const fetchPlaceDetails = (id) => {
         `SELECT * FROM places WHERE id = ?`,
         [id],
         (_, result) => {
-          resolve(result.rows._array[0]);
+          const dbPlace = result.rows._array[0];
+          const place = new Place(
+            dbPlace.title,
+            dbPlace.imageURI,
+            {
+              latitude: dbPlace.latitude,
+              longitude: dbPlace.longitude,
+              address: dbPlace.address,
+            },
+            dbPlace.id
+          );
+          resolve(place);
+        },
+        (_, error) => reject(error)
+      );
+    });
+  });
+  return promise;
+};
+
+export const deletePlace = (id) => {
+  const promise = new Promise((resolve, reject) => {
+    database.transaction((tr) => {
+      tr.executeSql(
+        `DELETE FROM places WHERE id = ?`,
+        [id],
+        () => {
+          resolve();
         },
         (_, error) => reject(error)
       );
